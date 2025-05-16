@@ -12,9 +12,9 @@ const port = 3000;
 
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/updsDB', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+mongoose.connect('mongodb://mongoadmin:12345678@localhost:27017/UPDS?authSource=admin',{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 })
 .then(() => {
     console.log('Conectado a la base de datos');
@@ -36,6 +36,7 @@ app.get('/',(req,res)=>{
 app.post('/users', async (req, res) => {
   try {
     const user = new User(req.body);
+    console.log(req.body);
     await user.save();
     res.status(201).send(user);
   } catch (error) {
